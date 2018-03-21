@@ -26,19 +26,30 @@ namespace WindowsFormsApp1
             System.Net.WebClient wc = new System.Net.WebClient();
             APIRetrieverClient service = new APIRetrieverClient();
 
-            JObject json = JObject.Parse(service.getResult(textBox1.Text));
-            String wt_description = json.GetValue("weather").ToString();
-            String wt_temp = json.GetValue("temp").ToString();
-            String wp_name = json.GetValue("name").ToString();
-            String wp_description = json.GetValue("desc").ToString();
+            try
+            {
+                JObject json = JObject.Parse(service.getResult(textBox1.Text));
+                String wt_description = json.GetValue("weather").ToString();
+                String wt_temp = json.GetValue("temp").ToString();
+                String wp_name = json.GetValue("name").ToString();
+                String wp_description = json.GetValue("desc").ToString();
 
-            label9.Text = wp_name;
-            growLabel1.Text = wp_description;
-            label7.Text = wt_description.First().ToString().ToUpper() + wt_description.Substring(1);
-            label6.Text = wt_temp + " °C";
+                label9.Text = wp_name;
+                growLabel1.Text = wp_description;
+                label7.Text = wt_description.First().ToString().ToUpper() + wt_description.Substring(1);
+                label6.Text = wt_temp + " °C";
 
-            label4.Text = "Weather";
-            label5.Text = "Temperature";
+                label4.Text = "Weather";
+                label5.Text = "Temperature";
+            } catch (Exception myException) {
+                Console.Error.WriteLine(myException.ToString());
+                growLabel1.Text = "";
+                label4.Text = "";
+                label5.Text = "";
+                label6.Text = "";
+                label7.Text = "";
+                label9.Text = "Invalid city name";
+            }
         }
     }
 }
