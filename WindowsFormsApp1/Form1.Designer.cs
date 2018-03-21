@@ -38,6 +38,8 @@
             this.label9 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.growLabel1 = new GrowLabel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBox1
@@ -87,11 +89,17 @@
             resources.ApplyResources(this.growLabel1, "growLabel1");
             this.growLabel1.Name = "growLabel1";
             // 
+            // panel1
+            // 
+            resources.ApplyResources(this.panel1, "panel1");
+            this.panel1.Controls.Add(this.growLabel1);
+            this.panel1.Name = "panel1";
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.growLabel1);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label7);
@@ -101,6 +109,8 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
             this.Name = "Form1";
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -117,6 +127,7 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button button1;
         private GrowLabel growLabel1;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 
