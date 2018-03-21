@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json.Linq;
 
+using WindowsForms1.ServiceReference1;
+
 namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
@@ -22,14 +24,13 @@ namespace WindowsFormsApp1
         private void button1_Click(object sender, EventArgs e)
         {
             System.Net.WebClient wc = new System.Net.WebClient();
+            APIRetrieverClient service = new APIRetrieverClient();
 
-            JObject json_wt = JObject.Parse(wc.DownloadString("http://api.openweathermap.org/data/2.5/weather?q=" + textBox1.Text + "&appid=60098300f6125b63aa03fa46379c0b72&units=metric"));
-            String wt_description = json_wt.SelectToken("weather[0].description").ToString();
-            String wt_temp = json_wt.SelectToken("main.temp").ToString();
-
-            JObject json_wp = JObject.Parse(wc.DownloadString("https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=" + textBox1.Text));
-            String wp_name = json_wp.SelectToken("query.pages").First.Last.SelectToken("title").ToString();
-            String wp_description = json_wp.SelectToken("query.pages").First.Last.SelectToken("extract").ToString();
+            JObject json = JObject.Parse(service.getResult(textBox1.Text));
+            String wt_description = json.GetValue("weather").ToString();
+            String wt_temp = json.GetValue("temp").ToString();
+            String wp_name = json.GetValue("name").ToString();
+            String wp_description = json.GetValue("desc").ToString();
 
             label9.Text = wp_name;
             growLabel1.Text = wp_description;
