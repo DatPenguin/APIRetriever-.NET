@@ -39,9 +39,11 @@
             this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.label2 = new System.Windows.Forms.Label();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.label3 = new System.Windows.Forms.Label();
+            this.growLabel2 = new GrowLabel();
             this.growLabel1 = new GrowLabel();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -81,6 +83,7 @@
             // 
             resources.ApplyResources(this.label9, "label9");
             this.label9.Name = "label9";
+            this.label9.Click += new System.EventHandler(this.label9_Click);
             // 
             // button1
             // 
@@ -103,12 +106,10 @@
             resources.ApplyResources(this.panel2, "panel2");
             this.panel2.Name = "panel2";
             // 
-            // radioButton1
+            // label2
             // 
-            resources.ApplyResources(this.radioButton1, "radioButton1");
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.TabStop = true;
-            this.radioButton1.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.Name = "label2";
             // 
             // radioButton2
             // 
@@ -117,10 +118,22 @@
             this.radioButton2.TabStop = true;
             this.radioButton2.UseVisualStyleBackColor = true;
             // 
-            // label2
+            // radioButton1
             // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.Name = "label2";
+            resources.ApplyResources(this.radioButton1, "radioButton1");
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.TabStop = true;
+            this.radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            resources.ApplyResources(this.label3, "label3");
+            this.label3.Name = "label3";
+            // 
+            // growLabel2
+            // 
+            resources.ApplyResources(this.growLabel2, "growLabel2");
+            this.growLabel2.Name = "growLabel2";
             // 
             // growLabel1
             // 
@@ -131,6 +144,8 @@
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.growLabel2);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.button1);
@@ -167,6 +182,8 @@
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private GrowLabel growLabel2;
     }
 }
 

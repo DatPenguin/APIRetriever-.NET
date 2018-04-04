@@ -19,6 +19,26 @@ namespace WindowsFormsApp1
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            getExchangeRate();
+        }
+
+        private void getExchangeRate() {
+            WebClient client = new WebClient();
+            client.Encoding = System.Text.Encoding.UTF8;
+            String URL = "https://api.coindesk.com/v1/bpi/currentprice.json";
+            string downloadString = client.DownloadString(URL);
+
+            try
+            {
+                JObject json = JObject.Parse(downloadString);
+
+                growLabel2.Text = json.SelectToken("bpi").SelectToken("EUR").SelectToken("rate").ToString() + " €";
+            }
+            catch (Exception myException)
+            {
+                Console.Error.WriteLine(myException.ToString());
+                growLabel2.Text = "";
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -27,6 +47,7 @@ namespace WindowsFormsApp1
                 getREST();
             else
                 getSOAP();
+            getExchangeRate();
         }
 
         private void getREST()
@@ -96,6 +117,11 @@ namespace WindowsFormsApp1
                 label7.Text = "";
                 label9.Text = "Invalid city name";
             }
+        }
+
+        public void label9_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
