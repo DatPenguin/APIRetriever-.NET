@@ -19,26 +19,6 @@ namespace WindowsFormsApp1
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
-            getExchangeRate();
-        }
-
-        private void getExchangeRate() {
-            WebClient client = new WebClient();
-            client.Encoding = System.Text.Encoding.UTF8;
-            String URL = "https://api.coindesk.com/v1/bpi/currentprice.json";
-            string downloadString = client.DownloadString(URL);
-
-            try
-            {
-                JObject json = JObject.Parse(downloadString);
-
-                growLabel2.Text = json.SelectToken("bpi").SelectToken("EUR").SelectToken("rate").ToString() + " €";
-            }
-            catch (Exception myException)
-            {
-                Console.Error.WriteLine(myException.ToString());
-                growLabel2.Text = "";
-            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -47,7 +27,29 @@ namespace WindowsFormsApp1
                 getREST();
             else
                 getSOAP();
-            getExchangeRate();
+            getTime();
+            getImage();
+        }
+
+        private void getImage()
+        {
+            WebClient client = new WebClient();
+            client.Encoding = System.Text.Encoding.UTF8;
+            String URL = "https://en.wikipedia.org/w/api.php?action=query&prop=pageimages&format=json&pithumbsize=279&titles=" + textBox1.Text;
+            string downloadString = client.DownloadString(URL);
+
+            try
+            {
+                JObject json = JObject.Parse(downloadString);
+                string imgUrl = json.SelectToken("query").SelectToken("pages").First().First().SelectToken("thumbnail").SelectToken("source").ToString();
+                pictureBox1.Load(imgUrl);
+                
+            }
+            catch (Exception myException)
+            {
+                Console.Error.WriteLine(myException.ToString());
+                growLabel1.Text = myException.ToString();
+            }
         }
 
         private void getREST()
@@ -83,6 +85,26 @@ namespace WindowsFormsApp1
                 label6.Text = "";
                 label7.Text = "";
                 label9.Text = "Invalid city name";
+            }
+        }
+
+        private void getTime()
+        {
+            WebClient client = new WebClient();
+            client.Encoding = System.Text.Encoding.UTF8;
+            String URL = "http://localhost:8080/net.ddns.dankest.ws.jersey.first/rest/timeretriever";
+            string downloadString = client.DownloadString(URL);
+
+            try
+            {
+                JObject json = JObject.Parse(downloadString);
+                String s = " Refreshed : " + json.GetValue("hours") + ":" + json.GetValue("minutes") + ":" + json.GetValue("seconds");
+
+                this.Text += s;
+            }
+            catch (Exception myException)
+            {
+                Console.Error.WriteLine(myException.ToString());
             }
         }
 
@@ -123,5 +145,6 @@ namespace WindowsFormsApp1
         {
 
         }
+        
     }
 }

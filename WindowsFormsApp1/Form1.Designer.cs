@@ -38,15 +38,16 @@
             this.label9 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.growLabel1 = new GrowLabel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.label3 = new System.Windows.Forms.Label();
-            this.growLabel2 = new GrowLabel();
-            this.growLabel1 = new GrowLabel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // textBox1
@@ -98,6 +99,11 @@
             this.panel1.Controls.Add(this.growLabel1);
             this.panel1.Name = "panel1";
             // 
+            // growLabel1
+            // 
+            resources.ApplyResources(this.growLabel1, "growLabel1");
+            this.growLabel1.Name = "growLabel1";
+            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.label2);
@@ -130,21 +136,17 @@
             resources.ApplyResources(this.label3, "label3");
             this.label3.Name = "label3";
             // 
-            // growLabel2
+            // pictureBox1
             // 
-            resources.ApplyResources(this.growLabel2, "growLabel2");
-            this.growLabel2.Name = "growLabel2";
-            // 
-            // growLabel1
-            // 
-            resources.ApplyResources(this.growLabel1, "growLabel1");
-            this.growLabel1.Name = "growLabel1";
+            resources.ApplyResources(this.pictureBox1, "pictureBox1");
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.TabStop = false;
             // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.growLabel2);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -161,6 +163,7 @@
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -183,7 +186,7 @@
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private GrowLabel growLabel2;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 
