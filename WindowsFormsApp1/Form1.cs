@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json.Linq;
 using System.Net;
@@ -21,47 +19,59 @@ namespace WindowsFormsApp1
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
         }
 
+        /**
+         * Runs when the users clicks the validation button
+         */
         private void button1_Click(object sender, EventArgs e)
         {
-            if (radioButton2.Checked)
-                getREST();
-            else
+            if (radioButton1.Checked)
                 getSOAP();
+            else
+                getREST();
             getTime();
             getImage();
         }
 
+        /**
+         * Gets the image from the Wikipedia API
+         */
         private void getImage()
         {
             WebClient client = new WebClient();
             client.Encoding = System.Text.Encoding.UTF8;
             String URL = "https://en.wikipedia.org/w/api.php?action=query&prop=pageimages&format=json&pithumbsize=279&titles=" + textBox1.Text;
-            string downloadString = client.DownloadString(URL);
+            string downloadString = client.DownloadString(URL); // We download the content of the web page as a string
 
             try
             {
-                JObject json = JObject.Parse(downloadString);
-                string imgUrl = json.SelectToken("query").SelectToken("pages").First().First().SelectToken("thumbnail").SelectToken("source").ToString();
-                pictureBox1.Load(imgUrl);
+                JObject json = JObject.Parse(downloadString);                                   // Creates a JSON Object from the string
+                string imgUrl = json.SelectToken("query").SelectToken("pages").First().First()  // Parses this object to retrieve the URL of the image
+                    .SelectToken("thumbnail").SelectToken("source").ToString();
+                pictureBox1.Load(imgUrl);                                                       // Displays the image by its URL
                 
             }
             catch (Exception myException)
             {
                 Console.Error.WriteLine(myException.ToString());
-                growLabel1.Text = myException.ToString();
             }
         }
 
+        /**
+         * Gets the infos by using the RESTful service
+         */
         private void getREST()
         {
             this.Text = "APIRetriever C# Client [REST]";
             WebClient client = new WebClient();
             client.Encoding = System.Text.Encoding.UTF8;
-            String URL = "http://localhost:8080/net.ddns.dankest.ws.jersey.first/rest/apiretriever?city=" + textBox1.Text;
+            String URL = "http://localhost:8080/net.ddns.dankest.ws.jersey.first/rest/apiretriever?city=" + textBox1.Text;  // Passing the parameters in the URL
             string downloadString = client.DownloadString(URL);
 
             try
             {
+                /**
+                 * Retrieving the infos from the JSON Object we got from the service and storing them into variables.
+                 */
                 JObject json = JObject.Parse(downloadString);
                 String wt_description = json.GetValue("weather").ToString();
                 String wt_temp = json.GetValue("temp").ToString();
@@ -76,7 +86,7 @@ namespace WindowsFormsApp1
                 label4.Text = "Weather";
                 label5.Text = "Temperature";
             }
-            catch (Exception myException)
+            catch (Exception myException)   // If an exception is caught, we reset all the labels.
             {
                 Console.Error.WriteLine(myException.ToString());
                 growLabel1.Text = "";
@@ -88,6 +98,9 @@ namespace WindowsFormsApp1
             }
         }
 
+        /**
+         * Gets Time from the Web Service
+         */
         private void getTime()
         {
             WebClient client = new WebClient();
@@ -100,7 +113,7 @@ namespace WindowsFormsApp1
                 JObject json = JObject.Parse(downloadString);
                 String s = " Refreshed : " + json.GetValue("hours") + ":" + json.GetValue("minutes") + ":" + json.GetValue("seconds");
 
-                this.Text += s;
+                this.Text += s; // Updates the title of the window with the time of the last refresh
             }
             catch (Exception myException)
             {
@@ -108,14 +121,21 @@ namespace WindowsFormsApp1
             }
         }
 
+        /**
+         * Gets the infos by using the SOAP service
+         */
         private void getSOAP()
         {
             this.Text = "APIRetriever C# Client [SOAP]";
-            APIRetrieverClient service = new APIRetrieverClient();
+            APIRetrieverClient service = new APIRetrieverClient();  // The SOAP client we generated in Visual Studio
 
             try
             {
-                JObject json = JObject.Parse(service.getResult(textBox1.Text));
+                JObject json = JObject.Parse(service.getResult(textBox1.Text)); // We use the SOAP client to access the data
+
+                /**
+                 * Storing the data into variables
+                 */
                 String wt_description = json.GetValue("weather").ToString();
                 String wt_temp = json.GetValue("temp").ToString();
                 String wp_name = json.GetValue("name").ToString();
